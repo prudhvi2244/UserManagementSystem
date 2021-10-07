@@ -1,5 +1,7 @@
 package com.example.demo.repo;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +52,27 @@ public class UserRepositoryTest {
 		boolean isUserAvialable=user.isPresent();
 		System.out.println("User With ID :"+eid+user.get());
 		Assertions.assertTrue(isUserAvialable);
+	}
+	
+	@Test
+	@Order(4)
+	public void findTestByCity()
+	{
+		String city="Goa";
+		List<User> allUsers=urepo.findByCity(city);
+		System.out.println(allUsers);
+		assertThat(allUsers).hasSize(1);
+	}
+	
+	
+	@Test
+	@Order(5)
+	public void testfindByEmail()
+	{
+		String email="prudhvi@gmail.com";
+		Optional<User> user=urepo.findByEmail(email);
+		System.out.println("User By Email :"+user.get());
+		Assertions.assertFalse(user.isEmpty());
 	}
 	
 }
